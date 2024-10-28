@@ -1,3 +1,15 @@
-body {
-    background-color: skyblue;
+.img-fluid {
+    max-width: 50%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 40px 78px 31px 92px;
+    -webkit-border-radius: 40px 78px 31px 92px;
+    -moz-border-radius: 40px 78px 31px 92px;
+    box-shadow: 9px 10px 72px 12px rgba(0,0,0,0.75);
+-webkit-box-shadow: 9px 10px 72px 12px rgba(0,0,0,0.75);
+-moz-box-shadow: 9px 10px 72px 12px rgba(0,0,0,0.75);
+}
+.card-header {
+    text-shadow: -9px 4px 6px rgba(0,0,0,0.6);
 }
