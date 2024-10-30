@@ -48,7 +48,7 @@ class Article
         return $this->Username;
     }
 
-    public function setUsername(int $Username): static
+    public function setUsername(int $Username): self
     {
         $this->Username = $Username;
 
@@ -177,5 +177,13 @@ class Article
         $this->author = $author;
 
         return $this;
+    }
+    public function getAuthorUsername(): ?string
+    {
+        return $this->author ? $this->author->getUsername() : null;
+    }
+    public function getAuthorFullName(): ?string
+    {
+        return $this->author ? $this->author->getFullName() : null;
     }
 }

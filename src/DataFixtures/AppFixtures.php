@@ -85,7 +85,7 @@ class AppFixtures extends Fixture
 
 
         ###
-        #   POST
+        #   
         # INSERTION d'Articles avec leurs users
         #
         ###
@@ -96,7 +96,7 @@ class AppFixtures extends Fixture
         for($i=1;$i<=100;$i++){
             $article = new Article();
             $keyUser = array_rand($users);
-            $article->setUsername($users[$keyUser]->getId());  // o setAuthor dependiendo de tu entidad
+            $article->setAuthor($users[$keyUser]->getId());  // o setAuthor dependiendo de tu entidad
             $articles[]=$article;
             $manager->persist($article);
         }
