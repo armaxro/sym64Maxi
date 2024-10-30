@@ -17,9 +17,6 @@ class Article
     #[ORM\Column(options: ['unsigned' => true])]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $Username = null;
-
     #[ORM\Column(length: 160)]
     private ?string $Title = null;
 
@@ -41,18 +38,6 @@ class Article
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUsername(): ?int
-    {
-        return $this->Username;
-    }
-
-    public function setUsername(int $Username): self
-    {
-        $this->Username = $Username;
-
-        return $this;
     }
 
     public function getTitle(): ?string

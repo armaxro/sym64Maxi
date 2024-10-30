@@ -96,9 +96,15 @@ class AppFixtures extends Fixture
         for($i=1;$i<=100;$i++){
             $article = new Article();
             $keyUser = array_rand($users);
-            $article->setAuthor($users[$keyUser]->getId());  // o setAuthor dependiendo de tu entidad
+            $article->setAuthor($users[$keyUser]);
+            $title = $faker->sentence(mt_rand(3, 8));
+            $article->setTitle($title);
+            $article->setTitleSlug($slugify->slugify($title));
+            $article->setText($faker->paragraphs(mt_rand(3, 7), true));
+            $article->setArticleDateCreate(new \DateTime());
+            $article->setPublished(true);
             $articles[]=$article;
-            $manager->persist($article);
+            $manager->persist($article);        
         }
 
         ###

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ section.sectionTitle }}{% endblock %}
+
+{% block body %}
+    {% include 'partials/nav.html.twig' %}
+    
+    <div class="container mt-4">
+        <h1>{{ section.sectionTitle }}</h1>
+        <p>{{ section.sectionDetail }}</p>
+        
+        {% if section.articles|length > 0 %}
+            <h2>Articles in this section</h2>
+            <div class="row">
+                {% for article in section.articles %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ article.title }}</h5>
+                                <p class="card-text">{{ article.text|slice(0, 100) }}...</p>
+                                <p class="card-text"><small class="text-muted">By {{ article.authorFullName }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No articles in this section yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}
