@@ -14,13 +14,13 @@ class SecurityController extends AbstractController
     public function index(AuthenticationUtils $authenticationUtils, SectionRepository $sectionRepository): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
-    $lastUsername = $authenticationUtils->getLastUsername();
+    $lastUsername = $authenticationUtils->getUsername();
     $sections = $sectionRepository->findAll();
     
-    return $this->render('security/index.html.twig', [
+    return $this->render('login/login.html.twig', [
         'controller_name' => 'SecurityController',
         'sections' => $sections,
-        'last_username' => $lastUsername,
+        'username' => $username,
         'error' => $error,
     ]);
     }

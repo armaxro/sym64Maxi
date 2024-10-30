@@ -65,7 +65,7 @@ class AppFixtures extends Fixture
         # avec nom et mots de passe "re-tenables"
         #
         ###
-        for($i=1;$i<=10;$i++){
+        for($i=1;$i<=24;$i++){
             $user = new User();
             // username de : user0 à user10
             $user->setUsername('user'.$i);
@@ -82,8 +82,27 @@ class AppFixtures extends Fixture
             $users[]=$user;
             $manager->persist($user);
         }
+        ###
+        #
+        # INSERTION de 6 redacteurs 
+        #
+        ###
 
+        for($i=1;$i<=6;$i++){
+            $redac = new User();
+            $redac->setUsername('redac'.$i)
+                ->setRoles(['ROLE_REDAC'])
+                ->setUniqid($faker->unique()->uuid())
+                ->setEmail("redac{$i}@example.com")
+                ->setFullname($faker->name())
+                ->setActivate(true);
+                $redac->setUniqid(uniqid('redac_', true));
 
+                $pwdHash = $this->hasher->hashPassword($redac, 'redac'.$i);
+            $redac->setPassword($pwdHash);
+            $manager->persist($redac);
+            $redacteurs[] = $redac;
+        }
         ###
         #   
         # INSERTION d'Articles avec leurs users
@@ -93,20 +112,22 @@ class AppFixtures extends Fixture
         
         $articles = [];  // Inicializar el array antes de usarlo
 
-        for($i=1;$i<=100;$i++){
-            $article = new Article();
-            $keyUser = array_rand($users);
-            $article->setAuthor($users[$keyUser]);
-            $title = $faker->sentence(mt_rand(3, 8));
-            $article->setTitle($title);
-            $article->setTitleSlug($slugify->slugify($title));
-            $article->setText($faker->paragraphs(mt_rand(3, 7), true));
-            $article->setArticleDateCreate(new \DateTime());
-            $article->setPublished(true);
-            $articles[]=$article;
-            $manager->persist($article);        
-        }
-
+for($i=1;$i<=160;$i++){
+    $article = new Article();
+    $keyUser = array_rand($users);
+    $article->setAuthor($users[$keyUser]);
+    $title = $faker->sentence(mt_rand(3, 8));
+    $article->setTitle($title);
+    $article->setTitleSlug($slugify->slugify($title));
+    $article->setText($faker->paragraphs(mt_rand(3, 7), true));
+    $article->setArticleDateCreate(new \DateTime());
+    
+    // Hacer que aproximadamente el 80% de los artículos estén publicados
+    $article->setPublished($faker->boolean(80)); // 80% de probabilidad de true
+    
+    $articles[]=$article;
+    $manager->persist($article);        
+}
         ###
         #   SECTION
         # INSERTION de Section en les liants

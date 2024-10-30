@@ -9,6 +9,8 @@
     box-shadow: 9px 10px 72px 12px rgba(0,0,0,0.75);
 -webkit-box-shadow: 9px 10px 72px 12px rgba(0,0,0,0.75);
 -moz-box-shadow: 9px 10px 72px 12px rgba(0,0,0,0.75);
+background: rgb(210,214,215);
+background: radial-gradient(circle, rgba(210,214,215,1) 0%, rgba(148,211,233,1) 100%);
 }
 .card-header {
     text-shadow: -9px 4px 6px rgba(0,0,0,0.6);

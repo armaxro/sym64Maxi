@@ -10,17 +10,20 @@ use App\Repository\ArticleRepository;
 class MainController extends AbstractController
 {
     #[Route('/', name: 'homepage')]
-    public function index(SectionRepository $sectionRepository, ArticleRepository $articleRepository): Response
-    {
-        $sections = $sectionRepository->findAll(); 
-        $article = $articleRepository->findOneBy(
-            ['Published' => true],
-            ['ArticleDateCreate' => 'DESC']
-        );
-        
-        return $this->render('main/index.html.twig', [
-            'sections' => $sections,
-            'article' => $article,
-        ]);
-    }
+public function index(SectionRepository $sectionRepository, ArticleRepository $articleRepository): Response
+{
+    $sections = $sectionRepository->findAll(); 
+    
+    // Obtener los últimos 5 artículos publicados
+    $articles = $articleRepository->findBy(
+        ['Published' => true],
+        ['ArticleDateCreate' => 'DESC'],
+        10 
+    );
+    
+    return $this->render('main/index.html.twig', [
+        'sections' => $sections,
+        'articles' => $articles,  
+    ]);
+}
 }

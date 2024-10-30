@@ -5,31 +5,33 @@
 {% block body %}
 {% include 'partials/nav.html.twig' %}
 <div class="card mb-3">
-    <h1 class="card-header text-center">Welcome to my Blog!</h1>
-    <div class="card-body">
+    <h1 class="card-header bg-warning text-center">Welcome to my Blog!</h1>
+    <div class="card-body bg-dark">
         <h5 class="card-title text-center">Flying around the world</h5>
     </div>
-    <img src="{{ asset('') }}" class="img-fluid" alt="Responsive image">
+    <div class="img-fluid"></div>
 </div>
 
-{% if article is defined and article is not null %}
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">{{ article.title }}</h4>
-            <h6 class="card-subtitle mb-2 text-muted"> 
-                Author: {{ article.authorFullName }} 
-                Date:{{ article.articleDateCreate|date('d/m/Y') }}
-            </h6>
-            <p class="card-text">{{ article.text|slice(0, 100) }}...</p>
-            {% if article.sections|length > 0 %}
-                {% for section in article.sections %}
-                    <a href="{{ path('section', {'id': section.id}) }}" class="card-link">
-                        {{ section.sectionTitle }}
-                    </a>
-                {% endfor %}
-            {% endif %}
+{% if articles is defined and articles|length > 0 %}
+    {% for article in articles %}
+        <div class="card mb-3">
+            <div class="card-body bg-primary">
+                <h4 class="card-title text-warning">{{ article.title }}</h4>
+                <h6 class="card-subtitle mb-2 text-muted"> 
+                    Author: {{ article.authorFullName }} 
+                    Date: {{ article.articleDateCreate|date('d/m/Y') }}
+                </h6>
+                <p class="card-text">{{ article.text|slice(0, 100) }}...</p>
+                {% if article.sections|length > 0 %}
+                    {% for section in article.sections %}
+                        <a href="{{ path('section', {'slug': section.SectionSlug}) }}" class="card-link text-warning">
+                            {{ section.SectionTitle }}
+                        </a>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </div>
-    </div>
+    {% endfor %}
 {% else %}
     <div class="alert alert-info">No articles available.</div>
 {% endif %}

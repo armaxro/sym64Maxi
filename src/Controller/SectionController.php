@@ -10,9 +10,16 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SectionController extends AbstractController
 {
-    #[Route('/section/{id}', name: 'section')]
-    public function show(Section $section, SectionRepository $sectionRepository): Response
+    #[Route('/section/{slug}', name: 'section')]
+    public function show(string $slug, SectionRepository $sectionRepository): Response
     {
+        // Obtener la sección por su slug
+        $section = $sectionRepository->findOneBy(['SectionSlug' => $slug]);
+        
+        if (!$section) {
+            throw $this->createNotFoundException('Section not found');
+        }
+        
         // Obtener todas las secciones para el menú
         $sections = $sectionRepository->findAll();
         

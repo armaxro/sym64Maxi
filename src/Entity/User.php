@@ -152,8 +152,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->articles->removeElement($article)) {
             // set the owning side to null (unless already changed)
-            if ($article->getUsername() === $this->getId()) {
-                $article->setUsername(0);
+            if ($article->getAuthor() === $this) {
+                $article->setAuthor(null);
             }
         }                                                                       
 
