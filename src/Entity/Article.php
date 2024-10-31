@@ -93,12 +93,13 @@ class Article
         return $this->ArticleDatePosted;
     }
 
-    public function setArticleDatePosted(\DateTimeInterface $ArticleDatePosted): static
+    public function setArticleDatePosted(?\DateTimeInterface $ArticleDatePosted): static
     {
         $this->ArticleDatePosted = $ArticleDatePosted;
-
+    
         return $this;
     }
+
 
     public function getPublished(): ?bool
     {

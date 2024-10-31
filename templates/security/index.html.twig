@@ -1,20 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SecurityController!{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% include 'partials/nav.html.twig' %}
+<form method="post" class="container mt-5">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {% if app.user %}
+        <div class="mb-3">
+            Vous êtes connecté {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+        </div>
+    {% endif %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>D:/sym64Maxi/src/Controller/SecurityController.php</code></li>
-        <li>Your template at <code>D:/sym64Maxi/templates/security/index.html.twig</code></li>
-    </ul>
-</div>
+    <fieldset>
+        <legend>Login</legend>
+        <div>
+            <label for="username" class="form-label mt-4">Entrez votre nom d'utilisateur</label>
+            <input type="text" 
+                   value="{{ username }}"
+                   name="_username"  {# Importante: añadir name="_username" #}
+                   class="form-control" 
+                   id="username" 
+                   required
+                   placeholder="Entrez votre nom d'utilisateur">
+        </div>
+        <div>
+            <label for="password" class="form-label mt-4">Entrez votre mot de passe</label>
+            <input type="password" 
+                   name="_password"  
+                   class="form-control" 
+                   id="password" 
+                   required
+                   placeholder="Entrez votre mot de passe" 
+                   autocomplete="current-password">
+        </div>
+
+        {# Añadir el token CSRF #}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <button type="submit" class="btn btn-primary mt-5">Submit</button>
+    </fieldset>
+</form>
 {% endblock %}
